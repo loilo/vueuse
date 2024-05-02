@@ -45,7 +45,9 @@ export function useFavicon(
       if (link) {
         link.rel = rel
         link.href = `${baseUrl}${icon}`
-        link.type = `image/${icon.split('.').pop()}`
+        link.type = icon.startsWith('data:')
+          ? icon.slice(5).split(';').shift()!
+          : `image/${icon.split('.').pop()}`
         document?.head.append(link)
       }
       return
